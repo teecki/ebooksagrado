@@ -1,0 +1,23 @@
+SITE EBOOK SAGRADO
+
+Como usar:
+1. Extraia este ZIP.
+2. Abra o arquivo index.html no navegador.
+3. As imagens já estão na pasta img com os nomes corretos.
+
+Arquivos importantes:
+- index.html = site principal
+- sucesso.html = página de confirmação simples
+- img/capa-ebook.png
+- img/pagina-1.png
+- img/pagina-2.png
+- img/pagina-3.png
+- img/qrcode-pix.png
+
+ATENÇÃO SOBRE PIX:
+O arquivo img/qrcode-pix.png é um modelo/placeholder.
+Para receber via Pix de verdade, gere o QR Code oficial no app do Banco Inter e substitua essa imagem mantendo o nome qrcode-pix.png.
+
+ATENÇÃO SOBRE ENTREGA AUTOMÁTICA:
+Entrega automática segura estilo Hotmart precisa de backend + webhook.
+Este ZIP é o site visual pronto. As chaves secretas de Stripe/Mercado Pago não devem ficar no HTML.
