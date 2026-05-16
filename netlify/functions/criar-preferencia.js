@@ -16,9 +16,9 @@ exports.handler = async function () {
           }
         ],
 back_urls: {
-  success: "https://ebooksagrado1.netlify.app/acesso.html?ok=1",
-  failure: "https://ebooksagrado1.netlify.app/cancelado.html",
-  pending: "https://ebooksagrado1.netlify.app/acesso.html?ok=1"
+  success: "https://booksagrado.netlify.app/acesso.html?ok=1",
+  failure: "https://booksagrado.netlify.app/cancelado.html",
+  pending: "https://booksagrado.netlify.app/acesso.html?ok=1"
 },
 auto_return: "approved"
       })
