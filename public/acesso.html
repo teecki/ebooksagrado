@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <script>
 const params = new URLSearchParams(window.location.search);
 
+// BLOQUEIA acesso direto
 if (params.get("ok") !== "1") {
   window.location.href = "/";
 }
 </script>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Acesso Liberado | EBOOK SAGRADO</title>
 <link rel="icon" type="image/png" href="/favicon.png">
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#07111f,#172235,#2b1c0b);color:white;min-height:100vh;padding:28px;display:grid;place-items:center}
@@ -26,34 +31,40 @@ p{color:rgba(255,255,255,.84);font-size:1.08rem;line-height:1.7;margin-bottom:16
 .notice{margin-top:20px;padding:16px;border-left:5px solid #d6a23c;background:rgba(0,0,0,.22);border-radius:16px;color:#fff2cf;text-align:left}
 </style>
 </head>
+
 <body>
 <div class="box">
 <img src="/img/capa-ebook.png" class="logo" alt="EBOOK SAGRADO">
 <div class="badge">🔒 Acesso protegido</div>
+
 <h1>Seu acesso ao <span>EBOOK SAGRADO</span></h1>
 <p id="msg">Verificando acesso...</p>
+
 <div id="actions" style="display:none">
-<a id="downloadBtn" class="btn" href="#">📖 Baixar EBOOK SAGRADO</a>
+<a id="downloadBtn" class="btn" href="/ebook.pdf">📖 Baixar EBOOK SAGRADO</a>
 <a class="btn btn-dark" href="/">Voltar ao site</a>
 </div>
+
 <div class="error" id="err"></div>
-<div class="notice"><strong>Importante:</strong> o acesso só é liberado pelo link correto após o pagamento.</div>
+
+<div class="notice">
+<strong>Importante:</strong> o acesso só é liberado pelo link correto após o pagamento.
 </div>
+</div>
+
 <script>
-const ACCESS_TOKEN = "ebook-sagrado-acesso-2026";
-const token = new URLSearchParams(location.search).get("token") || "";
-if(token !== ACCESS_TOKEN){
+const params = new URLSearchParams(window.location.search);
+
+// LIBERA ACESSO SE ok=1
+if (params.get("ok") === "1") {
+  document.getElementById("msg").innerHTML = "✅ Acesso liberado. Clique abaixo para baixar seu conteúdo.";
+  document.getElementById("actions").style.display = "block";
+} else {
   document.getElementById("msg").style.display = "none";
   document.getElementById("err").style.display = "block";
   document.getElementById("err").innerHTML = "❌ Acesso bloqueado.<br><br>Finalize sua compra para receber o link correto de acesso.";
-  document.getElementById("actions").style.display = "block";
-  document.getElementById("downloadBtn").style.display = "none";
-} else {
-  const url = "/.netlify/functions/download?token=" + encodeURIComponent(token);
-  document.getElementById("msg").innerHTML = "✅ Acesso liberado. Clique abaixo para baixar seu conteúdo.";
-  document.getElementById("actions").style.display = "block";
-  document.getElementById("downloadBtn").href = url;
 }
 </script>
+
 </body>
 </html>
