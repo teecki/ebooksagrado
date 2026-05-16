@@ -73,3 +73,14 @@ PRODUCT_NAME=EBOOK SAGRADO
 SITE_URL=https://ebooksagrado.netlify.app
 
 Depois faça novo deploy.
+
+
+# ENTREGA EMERGENCIAL FUNCIONAL
+
+Configure o pós-pagamento do Stripe e do Mercado Pago para:
+https://ebooksagrado.netlify.app/acesso.html?token=ebook-sagrado-acesso-2026
+
+Opcional no Netlify:
+ACCESS_TOKEN=ebook-sagrado-acesso-2026
+
+O PDF não está público. Ele fica em netlify/functions/private/EBOOK-SAGRADO.pdf.

@@ -1,1 +1,15 @@
-const fs=require("fs");const path=require("path");const PDF_PATH=path.join(__dirname,"private","EBOOK-SAGRADO.pdf");const MIN=Number(process.env.PRODUCT_PRICE_CENTS||999);function json(c,o){return{statusCode:c,headers:{"Content-Type":"application/json","Cache-Control":"no-store"},body:JSON.stringify(o)}}async function stripe(id){if(!process.env.STRIPE_SECRET_KEY)return{ok:false,error:"Stripe não configurado no Netlify."};if(!id)return{ok:false,error:"Sessão Stripe ausente."};const r=await fetch("https://api.stripe.com/v1/checkout/sessions/"+encodeURIComponent(id),{headers:{Authorization:"Bearer "+process.env.STRIPE_SECRET_KEY}});if(!r.ok)return{ok:false,error:"Não foi possível verificar o pagamento Stripe."};const d=await r.json();if(!((d.payment_status==="paid"||d.status==="complete")&&(!d.amount_total||Number(d.amount_total)>=MIN)))return{ok:false,error:"Pagamento Stripe ainda não aprovado."};return{ok:true}}async function mp(id){if(!process.env.MERCADOPAGO_ACCESS_TOKEN)return{ok:false,error:"Mercado Pago não configurado no Netlify."};if(!id)return{ok:false,error:"ID do pagamento Mercado Pago ausente."};const r=await fetch("https://api.mercadopago.com/v1/payments/"+encodeURIComponent(id),{headers:{Authorization:"Bearer "+process.env.MERCADOPAGO_ACCESS_TOKEN}});if(!r.ok)return{ok:false,error:"Não foi possível verificar o pagamento Mercado Pago."};const d=await r.json();if(!(d.status==="approved"&&(!d.transaction_amount||Number(d.transaction_amount)>=MIN/100)))return{ok:false,error:"Pagamento Mercado Pago ainda não aprovado."};return{ok:true}}exports.handler=async(event)=>{try{const q=event.queryStringParameters||{};const provider=String(q.provider||"").toLowerCase();const sessionId=q.session_id||q.sessionId;const paymentId=q.payment_id||q.paymentId||q.collection_id||q.collectionId;let v;if(provider==="stripe")v=await stripe(sessionId);else if(provider==="mercadopago"||provider==="mp")v=await mp(paymentId);else return json(403,{error:"Acesso bloqueado. Pagamento não identificado."});if(!v.ok)return json(403,{error:v.error});if(!fs.existsSync(PDF_PATH))return json(500,{error:"PDF não encontrado no servidor."});const pdf=fs.readFileSync(PDF_PATH);return{statusCode:200,headers:{"Content-Type":"application/pdf","Content-Disposition":'attachment; filename="EBOOK-SAGRADO.pdf"',"Cache-Control":"no-store"},body:pdf.toString("base64"),isBase64Encoded:true}}catch(e){return json(500,{error:"Erro interno ao liberar o conteúdo."})}};
+const fs=require("fs");
+const path=require("path");
+const PDF_PATH=path.join(__dirname,"private","EBOOK-SAGRADO.pdf");
+const ACCESS_TOKEN=process.env.ACCESS_TOKEN||"ebook-sagrado-acesso-2026";
+exports.handler=async(event)=>{
+  const q=event.queryStringParameters||{};
+  if((q.token||"")!==ACCESS_TOKEN){
+    return {statusCode:403,headers:{"Content-Type":"application/json"},body:JSON.stringify({error:"Acesso bloqueado."})};
+  }
+  if(!fs.existsSync(PDF_PATH)){
+    return {statusCode:500,headers:{"Content-Type":"application/json"},body:JSON.stringify({error:"PDF não encontrado."})};
+  }
+  const pdf=fs.readFileSync(PDF_PATH);
+  return {statusCode:200,headers:{"Content-Type":"application/pdf","Content-Disposition":'attachment; filename="EBOOK-SAGRADO.pdf"',"Cache-Control":"no-store"},body:pdf.toString("base64"),isBase64Encoded:true};
+};
