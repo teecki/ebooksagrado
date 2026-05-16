@@ -4,15 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<script>
-const params = new URLSearchParams(window.location.search);
-
-// BLOQUEIA acesso direto
-if (params.get("ok") !== "1") {
-  window.location.href = "/";
-}
-</script>
-
 <title>Acesso Liberado | EBOOK SAGRADO</title>
 <link rel="icon" type="image/png" href="/favicon.png">
 
@@ -53,10 +44,10 @@ p{color:rgba(255,255,255,.84);font-size:1.08rem;line-height:1.7;margin-bottom:16
 </div>
 
 <script>
-const params = new URLSearchParams(window.location.search);
+const urlParams = new URLSearchParams(window.location.search);
 
-// LIBERA ACESSO SE ok=1
-if (params.get("ok") === "1") {
+// 🔥 LIBERA OU BLOQUEIA
+if (urlParams.get("ok") === "1") {
   document.getElementById("msg").innerHTML = "✅ Acesso liberado. Clique abaixo para baixar seu conteúdo.";
   document.getElementById("actions").style.display = "block";
 } else {
