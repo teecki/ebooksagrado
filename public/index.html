@@ -665,18 +665,14 @@ nav{
           <div class="pay-icon">💳</div>
           <h4>Cartão Internacional</h4>
           <p>Pagamento seguro com cartão de crédito via Stripe.</p>
-          <a class="pay-link btn" href="https://buy.stripe.com/3cIbJ19i77eW9rD1OC1oI00" onclick="saveEmail()" target="_blank" rel="noopener">
-            Pagar com Stripe
-          </a>
+          <button class="pay-link btn" type="button" onclick="startCheckout('stripe')">Pagar com Stripe</button>
         </div>
 
         <div class="pay-card destaque">
           <div class="pay-icon">⚡</div>
           <h4>Pix, Cartão e Mercado Pago</h4>
           <p>Escolha Pix com QR Code automático, cartão ou saldo Mercado Pago.</p>
-          <a class="pay-link btn" href="https://mpago.la/1TnGaYZ" onclick="saveEmail()" target="_blank" rel="noopener">
-            Pagar no Mercado Pago
-          </a>
+          <button class="pay-link btn" type="button" onclick="startCheckout('mercadopago')">Pagar no Mercado Pago</button>
         </div>
       </div>
 
@@ -689,16 +685,8 @@ nav{
 </section>
 
 
-<script>
-const STRIPE_LINK = "https://buy.stripe.com/3cIbJ19i77eW9rD1OC1oI00";
-const MERCADO_PAGO_LINK = "https://mpago.la/1TnGaYZ";
-function saveEmail(){
-  const input = document.getElementById('buyerEmail');
-  if(input && input.value.trim()) {
-    localStorage.setItem('buyerEmail', input.value.trim());
-  }
-}
-</script>
 
+
+<script>function getBuyerEmail(){const input=document.getElementById("buyerEmail");const email=input?input.value.trim():"";if(email)localStorage.setItem("buyerEmail",email);return email}async function startCheckout(provider){const email=getBuyerEmail();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert("Digite um e-mail válido antes de continuar.");return}const endpoint=provider==="stripe"?"/.netlify/functions/create-stripe-checkout":"/.netlify/functions/create-mercadopago-checkout";try{const res=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email})});const data=await res.json();if(!res.ok)throw new Error(data.error||"Erro ao criar pagamento.");window.location.href=data.url}catch(err){alert(err.message||"Erro de conexão. Tente novamente.")}}function saveEmail(){const email=getBuyerEmail();if(email)alert("E-mail salvo.")}</script>
 </body>
 </html>

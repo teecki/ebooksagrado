@@ -62,3 +62,14 @@ Use:
 https://ebooksagrado.netlify.app/acesso.html?provider=mercadopago
 
 Se o link simples do Mercado Pago não enviar ID do pagamento no retorno, a Netlify não consegue confirmar automaticamente.
+
+# ENTREGA FUNCIONAL NA NETLIFY
+
+Adicione em Netlify > Site settings > Environment variables:
+STRIPE_SECRET_KEY=sk_live_...
+MERCADOPAGO_ACCESS_TOKEN=APP_USR-...
+PRODUCT_PRICE_CENTS=999
+PRODUCT_NAME=EBOOK SAGRADO
+SITE_URL=https://ebooksagrado.netlify.app
+
+Depois faça novo deploy.
