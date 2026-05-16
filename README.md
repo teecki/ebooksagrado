@@ -84,3 +84,39 @@ Opcional no Netlify:
 ACCESS_TOKEN=ebook-sagrado-acesso-2026
 
 O PDF não está público. Ele fica em netlify/functions/private/EBOOK-SAGRADO.pdf.
+
+
+# CORREÇÃO DO ERRO Function.ResponseSizeTooLarge
+
+A função não envia mais o PDF pela resposta da Netlify.
+Agora ela valida o token e redireciona para um arquivo com nome secreto.
+
+Link pós-pagamento:
+https://ebooksagrado.netlify.app/acesso.html?token=ebook-sagrado-acesso-2026
+
+Arquivo do ebook:
+public/downloads/ebook-sagrado-material-digital-7f9c2a1b.pdf
+
+Observação:
+O arquivo não aparece como /ebook.pdf, mas qualquer link de arquivo estático pode ser compartilhado se alguém copiar o endereço final.
+Para proteção absoluta, use armazenamento externo com links assinados ou backend dedicado.
+
+
+# Atualização solicitada
+
+- Novo link Mercado Pago:
+https://mpago.la/1kU9ATU
+
+- Removido botão "Já comprei".
+- Removido campo de e-mail da área de compra.
+- Mantida entrega via página de acesso pós-pagamento:
+https://ebooksagrado.netlify.app/acesso.html?token=ebook-sagrado-acesso-2026
+
+
+# Atualização final
+
+- Link Mercado Pago atualizado:
+https://mpago.la/2xdV5Dj
+
+- Botão "Já comprei" removido.
+- Campo de e-mail removido.

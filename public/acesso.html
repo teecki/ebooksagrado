@@ -1,1 +1,52 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Acesso Liberado | EBOOK SAGRADO</title><link rel="icon" type="image/png" href="/favicon.png"><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#07111f,#172235,#2b1c0b);color:white;min-height:100vh;padding:28px;display:grid;place-items:center}.box{width:min(860px,100%);background:rgba(255,255,255,.09);border:1px solid rgba(244,207,122,.35);border-radius:32px;padding:42px;text-align:center;box-shadow:0 30px 90px rgba(0,0,0,.36)}.logo{width:92px;height:92px;object-fit:cover;border-radius:18px;margin-bottom:20px}h1{font-family:Georgia,serif;font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.05;margin-bottom:16px}h1 span{color:#f4cf7a}p{color:rgba(255,255,255,.84);font-size:1.08rem;line-height:1.7;margin-bottom:16px}.badge{display:inline-flex;padding:9px 16px;border-radius:999px;background:rgba(244,207,122,.13);border:1px solid rgba(244,207,122,.28);color:#f4cf7a;font-weight:800;margin-bottom:18px}.btn{display:inline-flex;justify-content:center;background:linear-gradient(135deg,#f4cf7a,#d6a23c);color:#111;padding:18px 26px;border-radius:999px;text-decoration:none;font-weight:900;margin:8px;width:min(420px,100%)}.btn-dark{background:#07111f;color:#fff2cf;border:1px solid rgba(244,207,122,.3)}.error{color:#ffdfdf;background:rgba(255,0,0,.12);border:1px solid rgba(255,100,100,.25);padding:16px;border-radius:14px;margin-top:22px;display:none}.notice{margin-top:20px;padding:16px;border-left:5px solid #d6a23c;background:rgba(0,0,0,.22);border-radius:16px;color:#fff2cf;text-align:left}</style></head><body><div class="box"><img src="/img/capa-ebook.png" class="logo" alt="EBOOK SAGRADO"><div class="badge">🔒 Acesso protegido</div><h1>Seu acesso ao <span>EBOOK SAGRADO</span></h1><p id="msg">Verificando acesso...</p><div id="actions" style="display:none"><a id="downloadBtn" class="btn" href="#">📖 Baixar EBOOK SAGRADO</a><a class="btn btn-dark" href="/">Voltar ao site</a></div><div class="error" id="err"></div><div class="notice"><strong>Importante:</strong> esta página só libera o conteúdo quando o cliente vem pelo link correto pós-pagamento.</div></div><script>const token=new URLSearchParams(location.search).get("token")||"";const ACCESS_TOKEN="ebook-sagrado-acesso-2026";if(token!==ACCESS_TOKEN){document.getElementById("msg").style.display="none";document.getElementById("err").style.display="block";document.getElementById("err").innerHTML="❌ Acesso bloqueado.<br><br>Finalize sua compra para receber o link correto de acesso.";document.getElementById("actions").style.display="block";document.getElementById("downloadBtn").style.display="none";}else{const url="/.netlify/functions/download?token="+encodeURIComponent(token);document.getElementById("msg").innerHTML="✅ Acesso liberado. Clique abaixo para baixar seu conteúdo.";document.getElementById("actions").style.display="block";document.getElementById("downloadBtn").href=url;}</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Acesso Liberado | EBOOK SAGRADO</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#07111f,#172235,#2b1c0b);color:white;min-height:100vh;padding:28px;display:grid;place-items:center}
+.box{width:min(860px,100%);background:rgba(255,255,255,.09);border:1px solid rgba(244,207,122,.35);border-radius:32px;padding:42px;text-align:center;box-shadow:0 30px 90px rgba(0,0,0,.36)}
+.logo{width:92px;height:92px;object-fit:cover;border-radius:18px;margin-bottom:20px}
+h1{font-family:Georgia,serif;font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.05;margin-bottom:16px}
+h1 span{color:#f4cf7a}
+p{color:rgba(255,255,255,.84);font-size:1.08rem;line-height:1.7;margin-bottom:16px}
+.badge{display:inline-flex;padding:9px 16px;border-radius:999px;background:rgba(244,207,122,.13);border:1px solid rgba(244,207,122,.28);color:#f4cf7a;font-weight:800;margin-bottom:18px}
+.btn{display:inline-flex;justify-content:center;background:linear-gradient(135deg,#f4cf7a,#d6a23c);color:#111;padding:18px 26px;border-radius:999px;text-decoration:none;font-weight:900;margin:8px;width:min(420px,100%)}
+.btn-dark{background:#07111f;color:#fff2cf;border:1px solid rgba(244,207,122,.3)}
+.error{color:#ffdfdf;background:rgba(255,0,0,.12);border:1px solid rgba(255,100,100,.25);padding:16px;border-radius:14px;margin-top:22px;display:none}
+.notice{margin-top:20px;padding:16px;border-left:5px solid #d6a23c;background:rgba(0,0,0,.22);border-radius:16px;color:#fff2cf;text-align:left}
+</style>
+</head>
+<body>
+<div class="box">
+<img src="/img/capa-ebook.png" class="logo" alt="EBOOK SAGRADO">
+<div class="badge">🔒 Acesso protegido</div>
+<h1>Seu acesso ao <span>EBOOK SAGRADO</span></h1>
+<p id="msg">Verificando acesso...</p>
+<div id="actions" style="display:none">
+<a id="downloadBtn" class="btn" href="#">📖 Baixar EBOOK SAGRADO</a>
+<a class="btn btn-dark" href="/">Voltar ao site</a>
+</div>
+<div class="error" id="err"></div>
+<div class="notice"><strong>Importante:</strong> o acesso só é liberado pelo link correto após o pagamento.</div>
+</div>
+<script>
+const ACCESS_TOKEN = "ebook-sagrado-acesso-2026";
+const token = new URLSearchParams(location.search).get("token") || "";
+if(token !== ACCESS_TOKEN){
+  document.getElementById("msg").style.display = "none";
+  document.getElementById("err").style.display = "block";
+  document.getElementById("err").innerHTML = "❌ Acesso bloqueado.<br><br>Finalize sua compra para receber o link correto de acesso.";
+  document.getElementById("actions").style.display = "block";
+  document.getElementById("downloadBtn").style.display = "none";
+} else {
+  const url = "/.netlify/functions/download?token=" + encodeURIComponent(token);
+  document.getElementById("msg").innerHTML = "✅ Acesso liberado. Clique abaixo para baixar seu conteúdo.";
+  document.getElementById("actions").style.display = "block";
+  document.getElementById("downloadBtn").href = url;
+}
+</script>
+</body>
+</html>
