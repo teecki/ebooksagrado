@@ -15,10 +15,10 @@ exports.handler = async function () {
             unit_price: 9.99
           }
         ],
-        back_urls: {
+back_urls: {
   success: "https://ebooksagrado1.netlify.app/acesso.html?ok=1",
   failure: "https://ebooksagrado1.netlify.app/cancelado.html",
-  pending: "https://ebooksagrado1.netlify.app/"
+  pending: "https://ebooksagrado1.netlify.app/acesso.html?ok=1"
 },
 auto_return: "approved"
       })
