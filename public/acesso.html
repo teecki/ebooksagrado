@@ -1,1 +1,68 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Acesso ao eBook</title><style>*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#07111f,#2b1c0b);color:white;min-height:100vh;display:grid;place-items:center;padding:30px}.box{width:min(720px,100%);background:rgba(255,255,255,.1);border:1px solid rgba(244,207,122,.35);border-radius:28px;padding:38px;box-shadow:0 25px 70px rgba(0,0,0,.35)}h1{font-family:Georgia,serif;color:#f4cf7a;font-size:2.6rem;margin:0 0 12px}p{line-height:1.6;color:#f7ead0}input{width:100%;padding:16px;border-radius:14px;border:1px solid #d6a23c;margin:18px 0;font-size:1rem}button,a{display:inline-flex;background:linear-gradient(135deg,#f4cf7a,#d6a23c);color:#111;padding:15px 24px;border-radius:999px;text-decoration:none;font-weight:800;border:0;cursor:pointer}.result{margin-top:22px;padding:18px;border-radius:16px;background:rgba(0,0,0,.25);border:1px solid rgba(244,207,122,.25)}</style></head><body><div class="box"><h1>Área segura do eBook</h1><p>Digite o mesmo e-mail usado na compra.</p><input id="email" type="email" placeholder="Seu e-mail de compra"><button onclick="requestAccess()">Liberar acesso</button><div id="result" class="result" style="display:none"></div><p><a href="/">Voltar</a></p></div><script>async function requestAccess(){const email=document.getElementById('email').value.trim();const box=document.getElementById('result');box.style.display='block';box.innerHTML='Verificando pagamento...';const res=await fetch('/api/access/request',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});const data=await res.json();if(!res.ok){box.innerHTML='❌ '+(data.error||'Acesso não liberado.');return}box.innerHTML=`<p>✅ Acesso liberado!</p><p><a href="${data.downloadUrl}">📥 Baixar EBOOK SAGRADO</a></p><p>Este link expira em ${data.expiresInMinutes} minutos.</p>`}window.addEventListener('load',()=>{const saved=localStorage.getItem('buyerEmail');if(saved)document.getElementById('email').value=saved})</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Seu acesso foi liberado | EBOOK SAGRADO</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/favicon.png">
+<meta name="theme-color" content="#07111f">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#d6a23c;--gold-light:#f4cf7a;--dark:#07111f;--cream:#fff7e8}
+body{font-family:Arial,sans-serif;background:radial-gradient(circle at 20% 10%,rgba(244,207,122,.16),transparent 28%),radial-gradient(circle at 90% 20%,rgba(214,162,60,.12),transparent 32%),linear-gradient(135deg,#07111f,#172235 52%,#2b1c0b);color:white;min-height:100vh;padding:28px}
+.wrap{width:min(1080px,100%);margin:0 auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.logo{display:flex;align-items:center;gap:12px;font-family:Georgia,serif;font-weight:800;letter-spacing:.8px}.logo img{width:54px;height:54px;border-radius:12px;object-fit:cover;border:1px solid rgba(244,207,122,.55);box-shadow:0 12px 28px rgba(0,0,0,.35)}.logo span{color:var(--gold-light)}
+.back{color:#fff2cf;text-decoration:none;border:1px solid rgba(244,207,122,.3);padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.06)}
+.hero{display:grid;grid-template-columns:1fr .82fr;gap:28px;align-items:center}.card{background:rgba(255,255,255,.09);border:1px solid rgba(244,207,122,.3);border-radius:34px;padding:42px;box-shadow:0 30px 90px rgba(0,0,0,.35);backdrop-filter:blur(14px)}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(244,207,122,.12);color:var(--gold-light);border:1px solid rgba(244,207,122,.28);padding:9px 16px;border-radius:999px;font-weight:800;font-size:.86rem;letter-spacing:.7px;text-transform:uppercase;margin-bottom:20px}
+h1{font-family:Georgia,serif;font-size:clamp(2.4rem,6vw,4.8rem);line-height:1.02;color:white;margin-bottom:18px}h1 span{color:var(--gold-light)}
+p{color:rgba(255,255,255,.84);font-size:1.08rem;line-height:1.7;margin-bottom:16px}
+.download-box{background:linear-gradient(180deg,#fffaf0,#f3dfb8);color:#2d1f10;border-radius:28px;padding:28px;margin-top:28px;box-shadow:0 20px 45px rgba(0,0,0,.22);border:1px solid rgba(244,207,122,.45)}
+.download-box h2{font-family:Georgia,serif;font-size:1.8rem;margin-bottom:10px;color:#291c0c}.download-box p{color:#563d18;margin-bottom:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;background:linear-gradient(135deg,var(--gold-light),var(--gold));color:#111;padding:18px 26px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(255,255,255,.45);box-shadow:0 18px 36px rgba(214,162,60,.32);transition:.25s ease}.btn:hover{transform:translateY(-3px)}
+.btn-secondary{margin-top:12px;background:#07111f;color:#fff2cf;box-shadow:none}.cover-card{padding:24px;text-align:center}.cover-card img{width:min(420px,100%);border-radius:26px;box-shadow:0 30px 80px rgba(0,0,0,.45);border:1px solid rgba(244,207,122,.35)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}.step{background:rgba(255,255,255,.08);border:1px solid rgba(244,207,122,.22);border-radius:22px;padding:18px}.step strong{display:block;color:#f4cf7a;margin-bottom:6px}
+.note{margin-top:24px;padding:18px;border-left:5px solid var(--gold);background:rgba(0,0,0,.22);border-radius:16px;color:#fff2cf}.support{margin-top:28px;text-align:center;color:rgba(255,255,255,.72)}
+@media(max-width:900px){body{padding:18px}.hero{grid-template-columns:1fr}.card{padding:26px}.steps{grid-template-columns:1fr}.top{align-items:flex-start;gap:14px;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="logo">
+      <img src="/img/capa-ebook.png" alt="EBOOK SAGRADO">
+      <div>✝ EBOOK <span>SAGRADO</span><br><small style="font-family:Arial;font-size:.75rem;color:#f4cf7a;letter-spacing:1.5px">ACESSO LIBERADO</small></div>
+    </div>
+    <a class="back" href="/">Voltar ao site</a>
+  </div>
+  <section class="hero">
+    <div class="card">
+      <div class="badge">✅ Pagamento confirmado</div>
+      <h1>Seu acesso ao <span>EBOOK SAGRADO</span> foi liberado</h1>
+      <p>Obrigado pela sua compra. Que este conteúdo fortaleça sua fé, traga direção para sua caminhada e ajude você a se aproximar mais de Deus todos os dias.</p>
+      <p>Clique no botão abaixo para abrir ou baixar o seu eBook agora.</p>
+      <div class="download-box">
+        <h2>📖 Acesse seu material</h2>
+        <p>O arquivo é 100% digital. Você pode ler pelo celular, computador ou tablet.</p>
+        <a class="btn" href="/ebook.pdf" target="_blank">Abrir / Baixar EBOOK SAGRADO</a>
+        <a class="btn btn-secondary" href="/ebook.pdf" download>Baixar no dispositivo</a>
+      </div>
+      <div class="steps">
+        <div class="step"><strong>1. Abra</strong>Toque no botão acima para acessar o arquivo.</div>
+        <div class="step"><strong>2. Salve</strong>Guarde no celular ou computador para ler depois.</div>
+        <div class="step"><strong>3. Leia</strong>Separe um momento de paz para estudar e refletir.</div>
+      </div>
+      <div class="note">Se o botão não abrir, tente novamente em alguns segundos ou use a opção “Baixar no dispositivo”.</div>
+      <div class="support">Precisa de ajuda? Entre em contato pelo canal onde realizou a compra.</div>
+    </div>
+    <div class="card cover-card">
+      <img src="/img/capa-ebook.png" alt="Capa do EBOOK SAGRADO">
+      <p style="margin-top:20px;color:#fff2cf">“A tua palavra é lâmpada para os meus pés e luz para o meu caminho.”</p>
+      <strong style="color:#f4cf7a">Salmos 119:105</strong>
+    </div>
+  </section>
+</div>
+</body>
+</html>

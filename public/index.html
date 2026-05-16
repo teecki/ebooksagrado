@@ -509,6 +509,7 @@ nav{
   }
 
 </style>
+<!-- LINKS DE PAGAMENTO CONFIGURADOS -->
 </head>
 <body>
 <nav><div class="container nav-content"><div class="logo">✝ DISCIPULADO <span>CRISTÃO</span></div><div class="nav-links"><a href="#historia">História</a><a href="#sobre">Sobre</a><a href="#metodo">Método</a><a href="#beneficios">Benefícios</a><a href="#depoimentos">Depoimentos</a><a href="#comentarios">Comentários</a><a href="#conteudo">Conteúdo</a><a href="#comprar">Comprar</a><a href="/acesso.html" class="btn" style="padding:10px 18px;">Já comprei</a></div></div></nav>
@@ -636,38 +637,19 @@ nav{
     </div>
   </div>
 </section>
+
+
 <script>
-function addVisualComment(){
-  const name = document.getElementById('commentName').value.trim() || 'Visitante';
-  const text = document.getElementById('commentText').value.trim();
-  if(!text){ alert('Escreva um comentário primeiro.'); return; }
-  const list = document.getElementById('commentList');
-  const item = document.createElement('div');
-  item.className = 'comment-item';
-  item.innerHTML = `
-    <img class="comment-avatar" src="https://i.pravatar.cc/100?u=${encodeURIComponent(name + Date.now())}" alt="">
-    <div class="comment-body">
-      <strong>${name.replace(/</g,'&lt;')}</strong>
-      <small>agora</small>
-      <p>${text.replace(/</g,'&lt;')}</p>
-      <div class="comment-actions"><span>Curtir</span><span>Responder</span><span>⭐ Avaliar</span></div>
-    </div>`;
-  list.prepend(item);
-  document.getElementById('commentText').value='';
+const STRIPE_LINK = "https://buy.stripe.com/3cIbJ19i77eW9rD1OC1oI00";
+const MERCADO_PAGO_LINK = "https://mpago.la/1TnGaYZ";
+function saveEmail(){
+  const input = document.getElementById('buyerEmail');
+  if(input && input.value.trim()) localStorage.setItem('buyerEmail', input.value.trim());
 }
+function goStripe(){ saveEmail(); window.location.href = STRIPE_LINK; }
+function goMercadoPago(){ saveEmail(); window.location.href = MERCADO_PAGO_LINK; }
+function checkout(provider){ saveEmail(); window.location.href = provider === 'stripe' ? STRIPE_LINK : MERCADO_PAGO_LINK; }
 </script>
 
-
-<section class="offer" id="comprar"><div class="container"><h2 class="section-title">Acesse hoje o seu eBook</h2><p>Não é apenas um eBook. É um investimento na sua vida espiritual.</p><div class="price">R$ 9,99</div><div class="payment-box"><h3>Compra com entrega protegida</h3><p>Digite seu e-mail. Após o pagamento aprovado, esse e-mail ficará liberado para acessar o eBook na área segura.</p><div class="checkout-form"><input id="buyerEmail" type="email" placeholder="Seu e-mail para receber o acesso"><button class="btn" onclick="saveEmail()">Salvar e-mail</button></div><div class="payment-options"><div class="pay-card"><div class="pay-icon">💳</div><h4>Cartão Internacional</h4><p>Pagamento seguro com cartão de crédito via Stripe. Liberação automática após aprovação.</p><button class="btn pay-link" onclick="startCheckout('stripe')">Pagar com Stripe</button></div><div class="pay-card destaque"><div class="pay-icon">⚡</div><h4>Pix, Cartão e Mercado Pago</h4><p>Escolha Pix com QR Code automático, cartão ou saldo Mercado Pago.</p><button class="btn pay-link" onclick="startCheckout('mercadopago')">Pagar no Mercado Pago</button></div></div><div class="payment-note">Segurança: o PDF não fica público. Ele fica em pasta privada e só é liberado por token temporário para e-mails com pagamento aprovado.</div></div></div></section>
-<section class="delivery"><div class="container"><div class="delivery-box"><h2 class="section-title">Entrega automática</h2><p>Depois do pagamento aprovado, acesse a área segura com o mesmo e-mail usado na compra.</p><br><a href="/acesso.html" class="btn">Acessar meu eBook</a></div></div></section>
-<footer><p>© 2026 EBOOK SAGRADO | Discipulado Cristão</p><p>Fortaleça sua fé. Viva com propósito.</p>
-
-
-</footer>
-<script>
-function saveEmail(){const email=document.getElementById('buyerEmail').value.trim();if(!email||!email.includes('@'))return alert('Digite um e-mail válido.');localStorage.setItem('buyerEmail',email);alert('E-mail salvo para a compra.')}
-async function startCheckout(provider){const email=document.getElementById('buyerEmail').value.trim()||localStorage.getItem('buyerEmail');if(!email||!email.includes('@'))return alert('Digite seu e-mail antes de comprar.');localStorage.setItem('buyerEmail',email);const endpoint=provider==='stripe'?'/api/checkout/stripe':'/api/checkout/mercadopago';try{const res=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});const data=await res.json();if(!res.ok){alert(data.error||'Erro ao iniciar pagamento.');return}window.location.href=data.url}catch(error){alert('Erro de conexão. Tente novamente.')}}
-window.addEventListener('load',()=>{const email=localStorage.getItem('buyerEmail');if(email&&document.getElementById('buyerEmail'))document.getElementById('buyerEmail').value=email})
-</script>
 </body>
 </html>
