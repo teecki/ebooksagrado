@@ -37,3 +37,28 @@ https://mpago.la/1TnGaYZ
 
 Configure nos dois provedores o redirecionamento/success URL para:
 https://ebooksagrado.netlify.app/acesso.html
+
+
+# ENTREGA PROTEGIDA NA NETLIFY
+
+## Mudanças
+- Removido `public/ebook.pdf`.
+- PDF protegido em `netlify/functions/private/EBOOK-SAGRADO.pdf`.
+- `/acesso.html` só libera o download após validar pagamento.
+
+## Variáveis no Netlify
+Adicione em Site settings > Environment variables:
+STRIPE_SECRET_KEY=sk_live_...
+MERCADOPAGO_ACCESS_TOKEN=APP_USR-...
+PRODUCT_PRICE_CENTS=999
+
+## Stripe
+Configure o redirecionamento pós-pagamento para:
+https://ebooksagrado.netlify.app/acesso.html?provider=stripe&session_id={CHECKOUT_SESSION_ID}
+
+## Mercado Pago
+Para proteger de verdade, o retorno precisa trazer `payment_id` ou `collection_id`.
+Use:
+https://ebooksagrado.netlify.app/acesso.html?provider=mercadopago
+
+Se o link simples do Mercado Pago não enviar ID do pagamento no retorno, a Netlify não consegue confirmar automaticamente.
